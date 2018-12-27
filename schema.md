@@ -17,6 +17,7 @@ name: string
 id: string
 visa: string
 salesPerson: string
+bonusPayment: uint
 ```
 
 ## Customer
@@ -30,6 +31,7 @@ gender: string
 purchaseAmount: uint
 dateTimeofPurchase: string
 items: bytes32
+paymentAmount: uint
 ```
 
 ## Item
