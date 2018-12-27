@@ -2,12 +2,15 @@
 
 **This is a high level `pseudocode` documentation for the contract state structure.**
 
-## Sale
+## Order
 
 ```
 merchant: '$ref/merchant'
 customer: '$ref/customer'
-items: '$ref/item'
+purchaseAmount: decimal
+dateTimeofPurchase: string
+paymentAmount: decimal
+items: array
 ```
 
 ## Merchant
@@ -17,7 +20,7 @@ name: string
 id: string
 visa: string
 salesPerson: string
-bonusPayment: uint
+bonusPayment: decimal
 ```
 
 ## Customer
@@ -28,10 +31,6 @@ firstName: string
 lastName: string
 dateofBirth: string
 gender: string
-purchaseAmount: uint
-dateTimeofPurchase: string
-items: bytes32
-paymentAmount: uint
 ```
 
 ## Item
