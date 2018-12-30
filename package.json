@@ -1,0 +1,8 @@
+{
+  "name": "autotxn",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/niksmac/autotxn.git",
+  "author": "niksmac <nikhil@lightrains.com>",
+  "license": "MIT"
+}
