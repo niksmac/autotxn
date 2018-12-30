@@ -48,6 +48,15 @@ server.route({
   }
 });
 
+server.route({
+  method: "GET",
+  path: "/order",
+  handler: async function(request, h) {
+    const order = await getOrder(request.payload.id);
+    return order;
+  }
+});
+
 const start = async function() {
   try {
     await server.start();
