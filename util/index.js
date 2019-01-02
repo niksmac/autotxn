@@ -19,8 +19,9 @@ const instance = () => {
   return CDP.at(process.env.CONTRACT_ADDRESS);
 };
 
-const addOrder = data => {
-  var cdp = instance();
+const addOrder = async function(data) {
+  var cdp = await instance();
+
   return cdp.addOrder(
     data.id,
     data.purchaseAmount,
@@ -36,14 +37,13 @@ const addOrder = data => {
   );
 };
 
-const getOrder = id => {
-  var cdp = instance();
+const getOrder = async function(id) {
+  var cdp = await instance();
   return cdp.getOrder(id);
 };
 
-const addCustomer = data => {
-  var cdp = instance();
-  console.log(data);
+const addCustomer = async function(data) {
+  var cdp = await instance();
   return cdp.addCustomer(
     data.firstName,
     data.lastName,
@@ -57,13 +57,13 @@ const addCustomer = data => {
   );
 };
 
-const getCustomer = id => {
-  var cdp = instance();
+const getCustomer = async function(id) {
+  var cdp = await instance();
   return cdp.getCustomer(id);
 };
 
-const addMerchant = data => {
-  var cdp = instance();
+const addMerchant = async function(data) {
+  var cdp = await instance();
   return cdp.addMerchant(
     data.name,
     data.merchantID,
@@ -77,8 +77,8 @@ const addMerchant = data => {
   );
 };
 
-const getMerchant = id => {
-  var cdp = instance();
+const getMerchant = async function(id) {
+  var cdp = await instance();
   return cdp.getMerchant(id);
 };
 
