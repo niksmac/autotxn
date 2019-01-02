@@ -6,6 +6,7 @@
   "author": "niksmac <nikhil@lightrains.com>",
   "license": "MPL-2.0",
   "dependencies": {
+    "agenda": "^2.0.2",
     "data-store": "^3.1.0",
     "dotenv": "^6.2.0",
     "hapi": "^17.8.1",
