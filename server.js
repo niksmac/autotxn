@@ -10,14 +10,14 @@ const server = Hapi.server({
   port: 8000
 });
 
-import {
+const {
   addOrder,
   getOrder,
   addCustomer,
   getCustomer,
   addMerchant,
   getMerchant
-} from "./util";
+} = require("./util");
 
 server.route({
   method: "GET",
@@ -43,21 +43,78 @@ server.route({
       customerID: request.payload.customerID,
       items: request.payload.items
     };
-    const order = await addOrder({ data });
-    return order;
+
+    const agenda = request.server.plugins["autotxn-agenda"].agenda;
+    var job = agenda.create("place:order", data);
+    job.schedule(new Date(Date.now() + 10000)).save();
+    //const order = await addOrder({ data });
+    return data;
   }
 });
 
 server.route({
   method: "GET",
-  path: "/order",
+  path: "/order/{id}",
   handler: async function(request, h) {
-    const order = await getOrder(request.payload.id);
+    const order = await getOrder(request.params.id);
     return order;
   }
 });
 
+server.route({
+  method: "POST",
+  path: "/customer",
+  handler: async function(request, h) {
+    const data = {
+      firstName: request.payload.firstName,
+      lastName: request.payload.lastName,
+      birthdate: request.payload.birthdate,
+      customerID: request.payload.customerID,
+      gender: request.payload.gender
+    };
+    await addCustomer(data);
+    return data;
+  }
+});
+
+server.route({
+  method: "GET",
+  path: "/customer/{id}",
+  handler: async function(request, h) {
+    const customer = await getCustomer(request.params.id);
+    return customer;
+  }
+});
+
+server.route({
+  method: "POST",
+  path: "/merchant",
+  handler: async function(request, h) {
+    const data = {
+      name: request.payload.name,
+      merchantID: request.payload.merchantID,
+      visa: request.payload.visa,
+      salesPerson: request.payload.salesPerson,
+      bonusPayment: request.payload.bonusPayment
+    };
+    await addMerchant(data);
+    return data;
+  }
+});
+
+server.route({
+  method: "GET",
+  path: "/merchant/{id}",
+  handler: async function(request, h) {
+    const merchant = await getMerchant(request.params.id);
+    return merchant;
+  }
+});
+
 const start = async function() {
+  await server.register({
+    plugin: require("./plugin/agenda.js")
+  });
   try {
     await server.start();
   } catch (err) {
